@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Болашақ химиядан басталады · Жанат Утегалиева</title>
+<meta name="description" content="Химия пәнінің мұғалімі Жанат Утегалиеваның портфолиосы">
+<meta name="theme-color" content="#031615">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="assets/photos/lab-hero-bg.jpg" type="image/jpeg">
+<link rel="preload" as="image" href="assets/photos/teacher-cutout.png" type="image/png">
+<script>
+/* decide mode before first paint: static = reduced motion (WebGL check happens in scene3d.js) */
+(function(){var d=document.documentElement;d.classList.add('js');
+ if(matchMedia('(prefers-reduced-motion: reduce)').matches||/[?&]static\b/.test(location.search))d.classList.add('static');})();
+</script>
+<link rel="stylesheet" href="style.css?v=2">
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<a class="skip" href="#about">Мазмұнға өту</a>
+<div id="lab">
+  <img class="lab-bg" src="assets/photos/lab-hero-bg.jpg" alt="" width="1672" height="941" fetchpriority="high">
+  <div class="lab-glow" aria-hidden="true"></div>
+  <img class="lab-teacher" src="assets/photos/teacher-cutout.png" alt="Химия мұғалімі Жанат Утегалиева зертхана үстелінің жанында, алдында жасыл ерітінділері бар колбалар" width="1486" height="1050" fetchpriority="high">
+  <div class="lab-shade" aria-hidden="true"></div>
+</div>
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="veil" aria-hidden="true"></div>
+
+<header class="nav" id="nav">
+  <a class="brand" href="#home" data-go="0" aria-label="Басы">Ж<span>У</span></a>
+  <nav aria-label="Бөлімдер">
+    <ul>
+      <li><a href="#about" data-go="1">Мен туралы</a></li>
+      <li><a href="#approach" data-go="2">Ұстаным</a></li>
+      <li><a href="#students" data-go="3">Жетістіктер</a></li>
+      <li><a href="#growth" data-go="4">Тәжірибе</a></li>
+      <li><a href="#final" data-go="5">Қорытынды</a></li>
+    </ul>
+  </nav>
+  <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+</header>
+
+<main>
+<!-- 1 · HERO -->
+<section class="scene" id="home" data-h="300" aria-labelledby="h-home">
+  <div class="stick">
+    <div class="panel hero-text" data-fade="hero">
+      <p class="kicker">ЖАНАТ УТЕГАЛИЕВА</p>
+      <h1 id="h-home" class="mega"><span>БОЛАШАҚ</span><span>ХИМИЯДАН</span><span>БАС<span class="el" title="Тантал, 73"><i>73</i>Та</span>ЛАДЫ</span></h1>
+      <p class="lead">Химия пәнінің мұғалімі · педагог-сарапшы</p>
+      <a class="btn" href="#about" data-go="1">Портфолионы қарау <b aria-hidden="true">↓</b></a>
+    </div>
+    <p class="scroll-hint" aria-hidden="true">Төмен айналдырыңыз<i></i></p>
+  </div>
+</section>
+
+<!-- 2 · ABOUT -->
+<section class="scene" id="about" data-h="260" aria-labelledby="h-about">
+  <div class="stick">
+    <div class="panel" data-fade>
+      <p class="kicker">01 · Тамшының ішінде</p>
+      <h2 id="h-about">Мен туралы</h2>
+      <p class="text">Мен — Жанат Хабидоллаевна Утегалиева, Ақтөбе қаласындағы Ш. Құдайбердіұлы атындағы №66 жалпы білім беретін орта мектептің химия пәнінің мұғалімімін. Педагогикалық өтілім — 22 жыл, біліктілік санатым — педагог-сарапшы.</p>
+      <ul class="facts">
+        <li><b>Жоғары білім</b><span>Қ. Жұбанов атындағы Ақтөбе өңірлік университеті</span></li>
+        <li><b>22 жыл</b><span>педагогикалық өтіл</span></li>
+        <li><b>Педагог-сарапшы</b><span>біліктілік санаты</span></li>
+        <li><b>Әдістемелік бірлестік</b><span>жаратылыстану-математика бірлестігінің жетекшісі</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 3 · APPROACH (H2O) -->
+<section class="scene" id="approach" data-h="320" aria-labelledby="h-approach">
+  <div class="stick">
+    <div class="panel wide" data-fade>
+      <p class="kicker">02 · H₂O моделі</p>
+      <h2 id="h-approach">Менің педагогикалық мақсатым</h2>
+      <p class="text quote">Заманауи педагогикалық технологияларды тиімді қолдана отырып, оқушыларға сапалы білім мен тәрбие беру арқылы білім беру ұйымының дамуына үлес қосу.</p>
+      <ol class="steps" data-steps>
+        <li><b>01</b>Жаңартылған білім мазмұны</li>
+        <li><b>02</b>Білім сапасын арттыру</li>
+        <li><b>03</b>АКТ және заманауи әдістер</li>
+        <li><b>04</b>Әдістемелік және тәрбие жұмысы</li>
+      </ol>
+      <p class="text small" data-late>Авторлық бағдарлама: «Физика және химия әлемі» — 7-сыныпқа арналған факультативтік курс. «Өрлеу» Ақтөбе облысы бойынша КДИ оқу-әдістемелік кеңесі баспаға ұсынды (2025).</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4 · STUDENTS GALLERY -->
+<section class="scene" id="students" data-h="380" aria-labelledby="h-students">
+  <div class="stick">
+    <div class="panel full" data-fade>
+      <p class="kicker">03 · Галерея</p>
+      <h2 id="h-students">Оқушылардың жетістіктері</h2>
+      <ul class="gallery many" id="gallery">
+        <li><button class="doc" data-doc="st1"><span class="glass"><img src="assets/students/2025-batyrgalieva-sapsan-resp-1.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2025 · 11-сынып</em><strong>Батырғалиева Айсұлу</strong>«SAPSAN» жалпы пәндік олимпиадасының республикалық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
+        <li><button class="doc" data-doc="st2"><span class="glass"><img src="assets/students/2026-ayup-abai-oblys-1.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2026</em><strong>Аюп Айару</strong>«Абай» пәндік олимпиадасының облыстық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
+        <li><button class="doc" data-doc="st3"><span class="glass"><img src="assets/students/2024-shalabai-aqbota-1.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2024</em><strong>Шалабай Әдемі</strong>«Ақбота-2024» зияткерлік олимпиадасы, химия<b class="badge">І орын</b></span></button></li>
+        <li><button class="doc" data-doc="st4"><span class="glass"><img src="assets/students/2025-zhuzzhasar-aqbota-3.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2025 · 8-сынып</em><strong>Жүзжасар Назым</strong>«Ақбота» зияткерлік олимпиадасы («Дарын» РҒПО)<b class="badge">ІІІ дәреже</b></span></button></li>
+        <li><button class="doc" data-doc="st5"><span class="glass"><img src="assets/students/2025-izbaganbet-aqbota-3.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2025 · 9-сынып</em><strong>Ізбағанбет Ералы</strong>«Ақбота» зияткерлік олимпиадасы («Дарын» РҒПО)<b class="badge">ІІІ дәреже</b></span></button></li>
+        <li><button class="doc" data-doc="st6"><span class="glass"><img src="assets/students/2025-aliev-zerde-oblys-3.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2025</em><strong>Алиев Жасұлан</strong>«Зерде» ғылыми жобалар байқауының облыстық кезеңі, химия-биология<b class="badge">ІІІ дәреже</b></span></button></li>
+        <li><button class="doc" data-doc="st7"><span class="glass"><img src="assets/students/2025-batyrgalieva-olimp-qala-1.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2024–2025 оқу жылы</em><strong>Батырғалиева Айсұлу</strong>Республикалық олимпиаданың қалалық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
+        <li><button class="doc" data-doc="st8"><span class="glass"><img src="assets/students/2022-beskalieva-resp-olimp-qala-1.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>2021–2022 оқу жылы · 9-сынып</em><strong>Бесқалиева Жұлдыз</strong>Республикалық олимпиаданың ІІ (қалалық) кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
+      </ul>
+      <p class="hint-sm">Дипломды үлкейту үшін басыңыз · барлық құжаттар — «Құжаттарды қарау» батырмасында</p>
+    </div>
+  </div>
+</section>
+
+<!-- 5 · GROWTH TIMELINE -->
+<section class="scene" id="growth" data-h="520" aria-labelledby="h-growth">
+  <div class="stick">
+    <div class="panel wide" data-fade>
+      <p class="kicker">04 · Жарық сызығы</p>
+      <h2 id="h-growth">Кәсіби даму және тәжірибе алмасу</h2>
+      <div class="years" id="years" role="tablist" aria-label="Жылдар"></div>
+      <ol class="timeline" id="timeline"></ol>
+    </div>
+  </div>
+</section>
+
+<!-- 6 · FINAL -->
+<section class="scene" id="final" data-h="220" aria-labelledby="h-final">
+  <div class="stick">
+    <div class="panel" data-fade="final">
+      <p class="kicker">05 · Зертханаға оралу</p>
+      <h2 id="h-final" class="mega2">Білімнен — зерттеуге.<br><span>Зерттеуден — болашаққа.</span></h2>
+      <p class="text">2021–2026 жылдары оқушыларым химиядан қалалық, облыстық және республикалық олимпиадалар мен ғылыми жобалар байқауларында жүлделі орындарға ие болды.</p>
+      <div class="actions">
+        <a class="btn" href="https://drive.google.com/drive/folders/1vGfnxwUeFZ5Ysvobnc1w7UNKMSPW3iPY" target="_blank" rel="noopener">Құжаттарды қарау <b aria-hidden="true">↗</b></a>
+        <a class="btn ghost" href="#home" data-go="0">Басына оралу <b aria-hidden="true">↑</b></a>
+      </div>
+    </div>
+    <footer class="sign">Жанат Утегалиева · Ш. Құдайбердіұлы атындағы №66 ЖББОМ, Ақтөбе</footer>
+  </div>
+</section>
+</main>
+
+<dialog id="viewer" aria-labelledby="viewer-title">
+  <div class="v-head"><h3 id="viewer-title"></h3><button class="v-close" type="button" aria-label="Жабу">×</button></div>
+  <div class="v-body"><img id="viewer-img" alt=""></div>
+  <div class="v-foot"><p id="viewer-note"></p><div class="v-pages" id="viewer-pages"></div></div>
+</dialog>
+
+<script src="main.js?v=2"></script>
+<script type="module" src="scene3d.js?v=2"></script>
+</body>
+</html>
