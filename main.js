@@ -39,7 +39,9 @@
   const TL = [
     ["2025", "Халықаралық · сертификат", "Халықаралық конференциядағы мақала", "«ОЗАТ БІЛІМ» журналының халықаралық тамыз конференциясы: «Химия пәнін оқытуда АКТ пайдаланудың тиімділігі» мақаласы жарияланды.", ["2025-ozat-bilim-maqala-sert"]],
     ["2023", "Республикалық · диплом", "«PedOlimp» республикалық педагогикалық олимпиадасы", "ІІІ Республикалық пәндік педагогикалық олимпиаданың жеңімпазы, химия — І дәреже.", ["2023-pedolimp-1-dareje"]],
+    ["2025", "Республикалық · диплом", "«Білікті ұстаз» республикалық олимпиадасы", "«Білім педагогикалық шығармашылық орталығы» ұйымдастырған педагогтердің республикалық олимпиадасында химия пәні бойынша І орын (30.09.2025).", ["2025-bilikti-ustaz-resp-olimp-1-oryn"]],
     ["2025", "Республикалық семинар · диплом", "«Өрлеу» педагогикалық олимпиадасы", "«Жаратылыстану бағыты олимпиадаларына дайындық кезінде математикалық аппаратты қолдану» республикалық семинары аясындағы олимпиадада І орын.", ["2025-orleu-ped-olimp-1-oryn"]],
+    ["25.10", "Республикалық · диплом", "Қаржы қауіпсіздігі бойынша республикалық диктант", "«Заң мен тәртіп — Қауіпсіз Қазақстан үшін» жобасы аясындағы республикалық диктант жеңімпазының дипломы (80 балл).", ["zan-men-tartip-resp-diktant-zhenimpaz"]],
     ["2023", "Республикалық · сертификат", "«PedOlimp» ІІ республикалық олимпиадасы", "ІІ Республикалық пәндік педагогикалық олимпиадаға қатысып, кәсіби белсенділік танытқаны үшін сертификат.", ["2023-pedolimp-2-sertifikat"]],
     ["2026", "Облыстық · диплом", "Облыстық онлайн олимпиада: химия және ЖИ", "Химия пәнінен жасанды интеллект құралдарын тиімді, қауіпсіз және кәсіби қолдану құзыреттілігін бағалауға арналған олимпиадада І дәреже.", ["2026-ZhI-olimp-1-dareje"]],
     ["2025", "Облыстық · диплом", "Облыстық пәндік олимпиада", "Химия пәні мұғалімдері арасында өткен облыстық пәндік олимпиадада ІІ орын.", ["2025-oblys-olimp-2-oryn"]],
@@ -72,10 +74,23 @@
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
     $(".v-close", dlg).focus();
   }
-  dlg.addEventListener("close", () => { if (opener && opener.focus) opener.focus({ preventScroll: true }); });
+  /* lesson video (YouTube, privacy-enhanced embed) in the same dialog */
+  function openVideo(id, title, from) {
+    opener = from || document.activeElement;
+    $("#viewer-title").textContent = title; $("#viewer-pages").innerHTML = ""; img.hidden = true;
+    const f = document.createElement("iframe");
+    f.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&rel=0`; f.title = title; f.className = "v-video";
+    f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true;
+    $(".v-body", dlg).appendChild(f);
+    $("#viewer-note").innerHTML = `<a href="https://youtu.be/${id}" target="_blank" rel="noopener">YouTube-та ашу ↗</a>`;
+    if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    $(".v-close", dlg).focus();
+  }
+  dlg.addEventListener("close", () => { const v = $(".v-video", dlg); if (v) v.remove(); img.hidden = false; if (opener && opener.focus) opener.focus({ preventScroll: true }); });
   $(".v-close", dlg).onclick = () => dlg.close();
   dlg.addEventListener("click", e => { if (e.target === dlg) dlg.close(); });
-  document.addEventListener("click", e => { const b = e.target.closest("[data-doc]"); if (b) openDoc(b.dataset.doc, b); });
+  document.addEventListener("click", e => { const b = e.target.closest("[data-doc]"); if (b) openDoc(b.dataset.doc, b);
+    const v = e.target.closest("[data-video]"); if (v) openVideo(v.dataset.video, v.dataset.title, v); });
 
   /* ---------- scroll model ---------- */
   const scenes = $$(".scene"), isStatic = () => root.classList.contains("static");

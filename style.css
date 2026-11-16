@@ -201,3 +201,17 @@ dialog::backdrop{background:rgba(2,10,11,.85);backdrop-filter:blur(6px)}
 #approach .steps{grid-template-columns:repeat(2,minmax(0,1fr))}
 #approach .steps li{font-size:14.5px}
 @media (max-width:820px){#growth .years{display:none}}
+/* lesson video card */
+.lesson{all:unset;box-sizing:border-box;display:flex;gap:16px;align-items:center;margin-top:24px;padding:10px;max-width:520px;width:100%;cursor:pointer;border-radius:16px;border:1px solid rgba(71,216,222,.3);background:linear-gradient(160deg,rgba(71,216,222,.14),rgba(4,30,30,.6));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:box-shadow .3s,transform .2s}
+.lesson:hover{transform:translateY(-2px);box-shadow:0 18px 40px -18px rgba(71,216,222,.6)}
+.lesson:focus-visible{outline:3px solid var(--lime)}
+.lesson-thumb{position:relative;flex:0 0 150px;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000}
+.lesson-thumb img{width:100%;height:100%;object-fit:cover}
+.lesson-thumb i{position:absolute;inset:0;margin:auto;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:#031615;font-style:normal;font-size:16px;box-shadow:0 0 24px rgba(210,255,36,.5)}
+.lesson-meta{display:grid;gap:4px;font-size:14px;color:var(--mute)}
+.lesson-meta em{font-style:normal;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--teal)}
+.lesson-meta strong{color:var(--text);font-size:16px;line-height:1.3}
+.lesson-meta span{color:var(--lime);font-weight:700}
+.v-video{width:min(1100px,94vw);aspect-ratio:16/9;max-height:calc(92vh - 150px);border:0;display:block;background:#000}
+#viewer-note a{color:var(--teal)}
+@media (max-width:420px){.lesson-thumb{flex-basis:112px}.lesson-meta strong{font-size:14.5px}}
