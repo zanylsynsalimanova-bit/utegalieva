@@ -9,13 +9,13 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="assets/photos/lab-hero-bg.jpg" type="image/jpeg">
-<link rel="preload" as="image" href="assets/photos/teacher-cutout.png" type="image/png">
+<link rel="preload" as="image" href="assets/photos/teacher-cutout.webp" type="image/webp">
 <script>
 /* decide mode before first paint: static = reduced motion (WebGL check happens in scene3d.js) */
 (function(){var d=document.documentElement;d.classList.add('js');
  if(matchMedia('(prefers-reduced-motion: reduce)').matches||/[?&]static\b/.test(location.search))d.classList.add('static');})();
 </script>
-<link rel="stylesheet" href="style.css?v=5">
+<link rel="stylesheet" href="style.css?v=6">
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
 <body>
@@ -23,7 +23,7 @@
 <div id="lab">
   <img class="lab-bg" src="assets/photos/lab-hero-bg.jpg" alt="" width="1672" height="941" fetchpriority="high">
   <div class="lab-glow" aria-hidden="true"></div>
-  <img class="lab-teacher" src="assets/photos/teacher-cutout.png" alt="Химия мұғалімі Жанат Утегалиева зертхана үстелінің жанында, алдында жасыл ерітінділері бар колбалар" width="1486" height="1050" fetchpriority="high">
+  <img class="lab-teacher" src="assets/photos/teacher-cutout.webp" alt="Химия мұғалімі Жанат Утегалиева ақ халатта зертхана үстеліне сүйеніп тұр" width="1536" height="1024" fetchpriority="high">
   <div class="lab-shade" aria-hidden="true"></div>
 </div>
 <canvas id="gl" aria-hidden="true"></canvas>
@@ -100,21 +100,21 @@
       <h2 id="h-students">Оқушылардың жетістіктері</h2>
       <ul class="gallery many" id="gallery">
         <li><button class="doc" data-doc="st1"><span class="glass"><img src="assets/students/2025-batyrgalieva-sapsan-resp-1.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2025 · 11-сынып</em><strong>Батырғалиева Айсұлу</strong>«SAPSAN» жалпы пәндік олимпиадасының республикалық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
-        <li><button class="doc" data-doc="st2"><span class="glass"><img src="assets/students/2026-ayup-abai-oblys-1.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2026</em><strong>Аюп Айару</strong>«Абай» пәндік олимпиадасының облыстық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
+          <span class="meta"><em>Республикалық · 2025 · 11-сынып</em><strong>Батырғалиева Айсұлу</strong>«SAPSAN» жалпы пәндік олимпиадасының республикалық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
         <li><button class="doc" data-doc="st3"><span class="glass"><img src="assets/students/2024-shalabai-aqbota-1.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2024</em><strong>Шалабай Әдемі</strong>«Ақбота-2024» зияткерлік олимпиадасы, химия<b class="badge">І орын</b></span></button></li>
+          <span class="meta"><em>Республикалық · 2024</em><strong>Шалабай Әдемі</strong>«Ақбота-2024» зияткерлік олимпиадасы, химия<b class="badge">І орын</b></span></button></li>
         <li><button class="doc" data-doc="st4"><span class="glass"><img src="assets/students/2025-zhuzzhasar-aqbota-3.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2025 · 8-сынып</em><strong>Жүзжасар Назым</strong>«Ақбота» зияткерлік олимпиадасы («Дарын» РҒПО)<b class="badge">ІІІ дәреже</b></span></button></li>
+          <span class="meta"><em>Республикалық · 2025 · 8-сынып</em><strong>Жүзжасар Назым</strong>«Ақбота» зияткерлік олимпиадасы («Дарын» РҒПО)<b class="badge">ІІІ дәреже</b></span></button></li>
         <li><button class="doc" data-doc="st5"><span class="glass"><img src="assets/students/2025-izbaganbet-aqbota-3.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2025 · 9-сынып</em><strong>Ізбағанбет Ералы</strong>«Ақбота» зияткерлік олимпиадасы («Дарын» РҒПО)<b class="badge">ІІІ дәреже</b></span></button></li>
+          <span class="meta"><em>Республикалық · 2025 · 9-сынып</em><strong>Ізбағанбет Ералы</strong>«Ақбота» зияткерлік олимпиадасы («Дарын» РҒПО)<b class="badge">ІІІ дәреже</b></span></button></li>
+        <li><button class="doc" data-doc="st2"><span class="glass"><img src="assets/students/2026-ayup-abai-oblys-1.jpg" alt="" loading="lazy"></span>
+          <span class="meta"><em>Облыстық · 2026</em><strong>Аюп Айару</strong>«Абай» пәндік олимпиадасының облыстық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
         <li><button class="doc" data-doc="st6"><span class="glass"><img src="assets/students/2025-aliev-zerde-oblys-3.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2025</em><strong>Алиев Жасұлан</strong>«Зерде» ғылыми жобалар байқауының облыстық кезеңі, химия-биология<b class="badge">ІІІ дәреже</b></span></button></li>
+          <span class="meta"><em>Облыстық · 2025</em><strong>Алиев Жасұлан</strong>«Зерде» ғылыми жобалар байқауының облыстық кезеңі, химия-биология<b class="badge">ІІІ дәреже</b></span></button></li>
         <li><button class="doc" data-doc="st7"><span class="glass"><img src="assets/students/2025-batyrgalieva-olimp-qala-1.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2024–2025 оқу жылы</em><strong>Батырғалиева Айсұлу</strong>Республикалық олимпиаданың қалалық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
+          <span class="meta"><em>Қалалық · 2024–2025</em><strong>Батырғалиева Айсұлу</strong>Республикалық олимпиаданың қалалық кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
         <li><button class="doc" data-doc="st8"><span class="glass"><img src="assets/students/2022-beskalieva-resp-olimp-qala-1.jpg" alt="" loading="lazy"></span>
-          <span class="meta"><em>2021–2022 оқу жылы · 9-сынып</em><strong>Бесқалиева Жұлдыз</strong>Республикалық олимпиаданың ІІ (қалалық) кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
+          <span class="meta"><em>Қалалық · 2021–2022 · 9-сынып</em><strong>Бесқалиева Жұлдыз</strong>Республикалық олимпиаданың ІІ (қалалық) кезеңі, химия<b class="badge">І дәреже</b></span></button></li>
       </ul>
       <p class="hint-sm">Дипломды үлкейту үшін басыңыз · барлық құжаттар — «Құжаттарды қарау» батырмасында</p>
     </div>
@@ -156,7 +156,7 @@
   <div class="v-foot"><p id="viewer-note"></p><div class="v-pages" id="viewer-pages"></div></div>
 </dialog>
 
-<script src="main.js?v=5"></script>
-<script type="module" src="scene3d.js?v=5"></script>
+<script src="main.js?v=6"></script>
+<script type="module" src="scene3d.js?v=6"></script>
 </body>
 </html>

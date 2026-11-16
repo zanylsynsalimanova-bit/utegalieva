@@ -121,7 +121,7 @@ function init() {
   const LY = mob ? 1.6 : -1.4, LZ = -276, NODE = i => -1 + i * 4;
   const line = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, 46, 8), new THREE.MeshBasicMaterial({ color: 0x47d8de, fog: false })); line.rotation.z = Math.PI / 2; line.position.set(14, LY, LZ); tlGroup.add(line);
   const lineGlow = new THREE.Mesh(new THREE.CylinderGeometry(.16, .16, 46, 8, 1, true), new THREE.MeshBasicMaterial({ color: 0x47d8de, transparent: true, opacity: .18, blending: THREE.AdditiveBlending, depthWrite: false })); lineGlow.rotation.z = Math.PI / 2; lineGlow.position.copy(line.position); tlGroup.add(lineGlow);
-  const YEARS = ["2022", "2023", "2025", "2025", "2025", "2025", "2026", "2026"], nodes = [];
+  const YEARS = ["2025", "2023", "2025", "2026", "2025", "2025", "2026", "2022"], nodes = [];
   YEARS.forEach((y, i) => { const p = V(NODE(i), LY, LZ); const n = new THREE.Mesh(sph, core(0xd2ff24)); n.scale.setScalar(.14); n.position.copy(p); tlGroup.add(n);
     nodes.push([n, glow(tlGroup, 0xd2ff24, 1.6, p, .5), label(tlGroup, y, p.clone().add(V(0, .75, 0)), .5, "#AFC4C1")]); });
 
