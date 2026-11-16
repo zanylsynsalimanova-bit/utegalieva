@@ -119,9 +119,9 @@ function init() {
   // light line with year nodes
   const tlGroup = new THREE.Group(); micro.add(tlGroup);
   const LY = mob ? 1.6 : -1.4, LZ = -276, NODE = i => -1 + i * 4;
-  const line = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, 46, 8), new THREE.MeshBasicMaterial({ color: 0x47d8de, fog: false })); line.rotation.z = Math.PI / 2; line.position.set(14, LY, LZ); tlGroup.add(line);
-  const lineGlow = new THREE.Mesh(new THREE.CylinderGeometry(.16, .16, 46, 8, 1, true), new THREE.MeshBasicMaterial({ color: 0x47d8de, transparent: true, opacity: .18, blending: THREE.AdditiveBlending, depthWrite: false })); lineGlow.rotation.z = Math.PI / 2; lineGlow.position.copy(line.position); tlGroup.add(lineGlow);
-  const YEARS = ["2025", "2023", "2025", "2026", "2025", "2025", "2026", "2022"], nodes = [];
+  const line = new THREE.Mesh(new THREE.CylinderGeometry(.03, .03, 120, 8), new THREE.MeshBasicMaterial({ color: 0x47d8de, fog: false })); line.rotation.z = Math.PI / 2; line.position.set(14, LY, LZ); tlGroup.add(line);
+  const lineGlow = new THREE.Mesh(new THREE.CylinderGeometry(.16, .16, 120, 8, 1, true), new THREE.MeshBasicMaterial({ color: 0x47d8de, transparent: true, opacity: .18, blending: THREE.AdditiveBlending, depthWrite: false })); lineGlow.rotation.z = Math.PI / 2; lineGlow.position.copy(line.position); tlGroup.add(lineGlow);
+  const YEARS = window.TL_YEARS || ["2022", "2023", "2024", "2025", "2026"], TN = YEARS.length, TS = 4 * TN, LEND = TS + 4, nodes = [];
   YEARS.forEach((y, i) => { const p = V(NODE(i), LY, LZ); const n = new THREE.Mesh(sph, core(0xd2ff24)); n.scale.setScalar(.14); n.position.copy(p); tlGroup.add(n);
     nodes.push([n, glow(tlGroup, 0xd2ff24, 1.6, p, .5), label(tlGroup, y, p.clone().add(V(0, .75, 0)), .5, "#AFC4C1")]); });
 
@@ -139,7 +139,7 @@ function init() {
     { g: 3.3, p: V(0, mob ? .9 : 0, -239), l: V(0, mob ? 1 : 0, -252) },
     { g: 3.6, p: V(0, mob ? 1 : 0, -246), l: V(0, mob ? 1.2 : 0, -258) },
     { g: 4.0, p: V(-7, LY + 2.4, -265), l: V(-1, LY + 1.5, -276) },
-    { g: 5.0, p: V(25, LY + 2.4, -265), l: V(31, LY + 1.5, -276) },
+    { g: 5.0, p: V(-7 + TS, LY + 2.4, -265), l: V(-1 + TS, LY + 1.5, -276) },
     { g: 5.12, p: mob ? V(0, .8, 11.5) : V(-.4, .35, 10.4), l: mob ? V(0, 1.2, 0) : V(.6, .1, 0), cut: true },
     { g: 6.0, p: mob ? V(0, .7, 11) : V(-.6, .3, 9.8), l: mob ? V(0, 1.1, 0) : V(.4, .1, 0) }
   ];
@@ -150,7 +150,7 @@ function init() {
     const a = K[i], b = K[i + 1], t = Math.min(1, Math.max(0, (G - a.g) / (b.g - a.g)));
     let v = 0;
     if (b.cut) { const s = t < .5 ? a : b; tmpP.copy(s.p); tmpL.copy(s.l); v = Math.pow(1 - Math.abs(t - .5) * 2, .7); if (t < .5) tmpP.lerp(tmpL, t * .5); }
-    else if (a.g === 4) { const q = sm(.08, .92, G - 4); tmpP.set(-7 + 32 * q, LY + 2.4, -265); tmpL.set(-1 + 32 * q, LY + 1.5, -276); }
+    else if (a.g === 4) { const q = sm(.08, .92, G - 4); tmpP.set(-7 + TS * q, LY + 2.4, -265); tmpL.set(-1 + TS * q, LY + 1.5, -276); }
     else { const e = t * t * (3 - 2 * t); tmpP.lerpVectors(a.p, b.p, e); tmpL.lerpVectors(a.l, b.l, e); }
     return v;
   }
@@ -175,11 +175,11 @@ function init() {
       const u2 = Math.min(1, Math.max(0, G - 2)); h2o.rotation.set(Math.sin(u2 * Math.PI) * .35, -.7 + u2 * 1.7, Math.sin(t * .4) * .03);
       gate.rotation.z = G * .35; caus.offset.y = t * .015;
       h2o.visible = G > (mob ? 1.7 : 1.2) && G < 3.1; gate.visible = G > 2.55 && G < 3.5; panes.visible = G > 2.9 && G < 4.3; tlGroup.visible = G > 3.6;
-      const q = sm(.08, .92, G - 4), act = Math.min(7, Math.floor(q * 8 - 1e-6));
+      const q = sm(.08, .92, G - 4), act = Math.min(TN - 1, Math.floor(q * TN - 1e-6));
       freeMols.visible = G < 3.85;
       // the light line starts to the right of the reading column, so it never crosses the text
-      const cx = camera.position.x + (mob ? -3 : 6.5), len = Math.max(.01, 36 - cx);
-      line.scale.y = lineGlow.scale.y = len / 46; line.position.x = lineGlow.position.x = cx + len / 2;
+      const cx = camera.position.x + (mob ? -3 : 6.5), len = Math.max(.01, LEND - cx);
+      line.scale.y = lineGlow.scale.y = len / 120; line.position.x = lineGlow.position.x = cx + len / 2;
       nodes.forEach(([n, gl, lb], i) => { const on = G > 3.9 && G < 5.05 && i === act, vis = NODE(i) > cx - .3; n.visible = gl.visible = vis; lb.visible = vis && !mob;
         n.scale.setScalar(on ? .22 : .12); gl.material.opacity = on ? .9 : .3; lb.material.opacity = on ? 1 : .55; });
     }
