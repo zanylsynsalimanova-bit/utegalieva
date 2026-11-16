@@ -54,11 +54,20 @@
     ["2026", "Қалалық · сертификат", "Қалалық шебер-класс", "«Жаратылыстану пәндерінде цифрлық технологияларды біріктіріп оқыту» қалалық шебер-класына қатысты.", ["2026-qala-sheber-klass-sertifikat"]]
   ];
   TL.forEach((x, i) => { DOCS["g" + (i + 1)] = { t: `${x[0]} · ${x[2]}`, p: x[4].map(f => D + f + ".jpg"), n: x[5] }; });
-  $("#timeline").innerHTML = TL.map((x, i) => `<li id="tl-${i}" role="tabpanel" aria-labelledby="yr-${i}">
+  /* first slide of the section: the teacher's own text «Мұғалімнің кәсіби даму бағыттары» (verbatim) */
+  const DIRS = ["Пәндік білім мен кәсіби құзыреттілікті жетілдіру.", "Заманауи педагогикалық технологиялар мен инновациялық әдіс-тәсілдерді меңгеру.",
+    "Сабақта жасанды интеллект пен цифрлық платформаларды тиімді пайдалану.", "Оқушылардың функционалдық сауаттылығын дамытуға бағытталған тапсырмалар әзірлеу.",
+    "Химия пәні бойынша тәжірибелік және зерттеушілік жұмыстарды жетілдіру.", "Біліктілікті арттыру курстарына, семинарлар мен вебинарларға қатысу.",
+    "Педагогикалық тәжірибені тарату, кәсіби байқаулар мен әдістемелік іс-шараларға қатысу."];
+  const NT = TL.length + 1;
+  $("#timeline").innerHTML = `<li id="tl-0" class="intro" role="tabpanel" aria-labelledby="yr-0"><span class="tl-kind">Кәсіби даму</span>
+    <h3>Мұғалімнің кәсіби даму бағыттары</h3><ol class="dirs">${DIRS.map(d => `<li>${d}</li>`).join("")}</ol></li>` +
+    TL.map((x, i) => `<li id="tl-${i + 1}" role="tabpanel" aria-labelledby="yr-${i + 1}">
     <div class="tl-year" aria-hidden="true">${x[0]}</div><span class="tl-kind">${x[1]}</span><h3>${x[0]} · ${x[2]}</h3><p>${x[3]}</p>
     <button class="btn ghost" type="button" data-doc="g${i + 1}">Құжатты ашу <b aria-hidden="true">↗</b></button></li>`).join("");
-  $("#years").innerHTML = TL.map((x, i) => `<button type="button" role="tab" id="yr-${i}" aria-controls="tl-${i}" aria-selected="false" aria-label="${x[0]} · ${x[2]}">${x[0]}</button>`).join("");
-  window.TL_YEARS = TL.map(x => x[0]);    // read by scene3d.js for the light-line nodes
+  $("#years").innerHTML = `<button type="button" role="tab" id="yr-0" aria-controls="tl-0" aria-selected="false" aria-label="Кәсіби даму бағыттары">Бағыттар</button>` +
+    TL.map((x, i) => `<button type="button" role="tab" id="yr-${i + 1}" aria-controls="tl-${i + 1}" aria-selected="false" aria-label="${x[0]} · ${x[2]}">${x[0]}</button>`).join("");
+  window.TL_YEARS = ["Бағыттар"].concat(TL.map(x => x[0]));    // read by scene3d.js for the light-line nodes
 
   /* ---------- document viewer (native <dialog>: Esc closes, focus returns) ---------- */
   const dlg = $("#viewer"), img = $("#viewer-img");
@@ -118,10 +127,10 @@
     if (i > 0) setTimeout(() => { const h = scenes[i].querySelector("h2"); h && h.setAttribute("tabindex", "-1"); h && h.focus({ preventScroll: true }); }, 900);
   }));
   /* years → timeline position */
-  $$("#years button").forEach((b, i) => b.onclick = () => scrollTo({ top: tops[4] + spans[4] * (.1 + .8 * (i + .5) / TL.length), behavior: "smooth" }));
+  $$("#years button").forEach((b, i) => b.onclick = () => scrollTo({ top: tops[4] + spans[4] * (.1 + .8 * (i + .5) / NT), behavior: "smooth" }));
   /* keyboard focus on hidden timeline item → bring it into view */
-  $("#timeline").addEventListener("focusin", e => { const li = e.target.closest("li"); if (!li || isStatic()) return; const i = +li.id.split("-")[1];
-    scrollTo({ top: tops[4] + spans[4] * (.1 + .8 * (i + .5) / TL.length) }); });
+  $("#timeline").addEventListener("focusin", e => { const li = e.target.closest("#timeline > li"); if (!li || isStatic()) return; const i = +li.id.split("-")[1];
+    scrollTo({ top: tops[4] + spans[4] * (.1 + .8 * (i + .5) / NT) }); });
 
   /* ---------- hero lab layer: zoom into the painted flask, teacher slides aside in depth ---------- */
   const lab = $("#lab"), bg = $("#lab .lab-bg"), teacher = $("#lab .lab-teacher"), glowL = $("#lab .lab-glow");
@@ -149,7 +158,7 @@
 
   const sm = (a, b, v) => { const x = Math.min(1, Math.max(0, (v - a) / (b - a))); return x * x * (3 - 2 * x); };
   const panels = scenes.map(s => s.querySelector(".panel"));
-  const links = $$(".nav ul a"), steps = $$("[data-steps] li"), late = $("[data-late]"), cards = $$("#gallery .doc"), tls = $$("#timeline li"), yrs = $$("#years button");
+  const links = $$(".nav ul a"), steps = $$("[data-steps] li"), late = $("[data-late]"), cards = $$("#gallery .doc"), tls = $$("#timeline > li"), yrs = $$("#years button");
   let lastK = -1, lastT = -1;
 
   function frame() {
@@ -180,7 +189,7 @@
           c.style.transform = `rotateY(${((1 - f) * (side ? -side * 24 : 0)).toFixed(1)}deg) rotateX(${((1 - f) * 10).toFixed(1)}deg) translateZ(${(f * 40 - 30).toFixed(0)}px)`;
         });
       }
-      if (k === 4) { const t = Math.min(TL.length - 1, Math.max(0, Math.floor(sm(.08, .92, u) * TL.length - 1e-6)));
+      if (k === 4) { const t = Math.min(NT - 1, Math.max(0, Math.floor(sm(.08, .92, u) * NT - 1e-6)));
         if (t !== lastT) { tls.forEach((l, j) => { l.classList.toggle("on", j === t); l.setAttribute("aria-hidden", j !== t); }); yrs.forEach((b, j) => b.setAttribute("aria-selected", j === t)); lastT = t; } }
       if (k !== lastK) { links.forEach(a => a.setAttribute("aria-current", +a.dataset.go === k ? "true" : "false")); lastK = k; }
       $("#bar").style.width = (scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight) * 100).toFixed(2) + "%";
