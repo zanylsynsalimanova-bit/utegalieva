@@ -68,10 +68,11 @@ function init() {
   const labMols = [];
   const far = [];
   far.forEach((p, i) => { const m = molecule(["h2o", "ch4", "co2"][i % 3], mob ? .7 : .85); m.position.set(...p); lab.add(m); labMols.push(m); spinners.push(m); glow(lab, 0x47d8de, 2.4, V(...p), .18); });
-  const gather = []; const GN = mob ? 5 : 8, gc = mob ? V(0, 1.2, -1.5) : V(-3.1, .3, -2.2);
-  for (let i = 0; i < GN; i++) { const m = molecule(["h2o", "ch4", "co2"][i % 3], mob ? .45 : .6, i % 2 ? 0xd2ff24 : 0x47d8de);
-    const a = (mob ? Math.PI * .1 : -Math.PI * .55) + i / GN * (mob ? Math.PI * .8 : Math.PI * 1.3);
-    m.userData.to = mob ? V(gc.x + Math.cos(a) * 2.6, gc.y + Math.sin(a) * 1.8 + 1.2, gc.z) : V(gc.x + Math.cos(a) * 5.0, gc.y + Math.sin(a) * 3.3, gc.z - 1 + Math.sin(i) * .8);
+  // final composition: a small calm arc high in the gap between the text column and the teacher — never over text or face
+  const gather = []; const GN = mob ? 3 : 5, gc = mob ? V(0, 5.2, -9) : V(2.4, 3.4, -8);
+  for (let i = 0; i < GN; i++) { const m = molecule(["h2o", "ch4", "co2"][i % 3], mob ? .35 : .42, i % 2 ? 0xd2ff24 : 0x47d8de);
+    const a = Math.PI * (.15 + .7 * i / Math.max(1, GN - 1));
+    m.userData.to = V(gc.x + Math.cos(a) * (mob ? 2.2 : 2.6), gc.y + Math.sin(a) * .9, gc.z + Math.sin(i * 1.7) * .6);
     m.userData.from = V((Math.random() - .5) * 26, (Math.random() - .3) * 14, -18 - Math.random() * 12); m.position.copy(m.userData.from); m.visible = false; lab.add(m); gather.push(m); spinners.push(m); }
 
   /* ================= MICRO-WORLD (inside the drop) ================= */
